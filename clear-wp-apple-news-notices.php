@@ -8,17 +8,17 @@ Author: patmcm
 
 /**
  * When plugin is activated, set event to
- * delete the user meta 'apple_news_notice' once per day
+ * delete the user meta 'apple_news_notice' twice per day
  */
 function activate_plugin_callback_clear_apple_news_notices() {
-	if ( ! wp_next_scheduled ( 'clear_apple_news_notices_daily_cron' ) ) {
-		wp_schedule_event( time(), 'daily', 'clear_apple_news_notices_daily_cron' );
+	if ( ! wp_next_scheduled ( 'clear_apple_news_notices_twicedaily_cron' ) ) {
+		wp_schedule_event( time(), 'twicedaily', 'clear_apple_news_notices_twicedaily_cron' );
 	}
 }
 register_activation_hook( __FILE__, 'activate_plugin_callback_clear_apple_news_notices' );
 
 function deactivate_plugin_callback_clear_apple_news_notices() {
-	wp_clear_scheduled_hook( 'clear_apple_news_notices_daily_cron' );
+	wp_clear_scheduled_hook( 'clear_apple_news_notices_twicedaily_cron' );
 }
 register_deactivation_hook( __FILE__, 'deactivate_plugin_callback_clear_apple_news_notices' );
 
@@ -66,4 +66,4 @@ function clear_apple_news_notices_delete_user_meta() {
 
 	return null;
 }
-add_action( 'clear_apple_news_notices_daily_cron', 'clear_apple_news_notices_delete_user_meta' );
+add_action( 'clear_apple_news_notices_twicedaily_cron', 'clear_apple_news_notices_delete_user_meta' );
